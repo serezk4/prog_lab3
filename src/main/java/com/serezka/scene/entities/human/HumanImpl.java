@@ -44,4 +44,9 @@ public class HumanImpl implements Human {
     public String getName() {
         return this.name;
     }
+
+    @Override
+    public String getName(String prefix) {
+        return String.join(" ", prefix, this.name);
+    }
 }

@@ -9,8 +9,8 @@ public class HumanUtils {
     public static String toString(Human... humans) {
         final String names = Arrays.stream(humans)
                 .map(Human::getName)
-                .map(name -> String.join(name, " ", "и"))
+                .map(name -> String.join(" ", name, "и", ""))
                 .collect(Collectors.joining());
-        return names.substring(0, names.length() - 1);
+        return names.substring(0, names.length() - 2);
     }
 }

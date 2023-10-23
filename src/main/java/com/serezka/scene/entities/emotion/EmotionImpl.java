@@ -13,7 +13,7 @@ public class EmotionImpl implements Emotion {
 
     @Override
     public String from() {
-        return String.join("от", " ", this.emotion);
+        return String.join(" ", "от", this.emotion);
     }
 
     @Override
@@ -29,5 +29,10 @@ public class EmotionImpl implements Emotion {
     @Override
     public String getName() {
         return this.emotion;
+    }
+
+    @Override
+    public String getName(String prefix) {
+        return String.join(" ", prefix, this.emotion);
     }
 }

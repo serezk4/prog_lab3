@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-@FieldDefaults(level = AccessLevel.PRIVATE,makeFinal = true)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
 public class PlaceImpl implements Place {
     String name;
@@ -15,12 +15,7 @@ public class PlaceImpl implements Place {
     }
 
     @Override
-    public String in() {
-        return in("в");
-    }
-
-    @Override
-    public String in(String prefix) {
-        return String.join(prefix, " ", this.name);
+    public String getName(String prefix) {
+        return String.join(" ", prefix, " ", this.name);
     }
 }

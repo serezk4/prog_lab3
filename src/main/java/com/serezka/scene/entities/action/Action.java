@@ -8,5 +8,5 @@ public interface Action extends Entity {
     String execute();
     String executeFrom(Human... humans);
     String executeFromAndUse(Emotion emotion, Human... humans);
-    String executeFrom(String prefix);
+    String executeFrom(String entity);
 }

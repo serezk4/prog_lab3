@@ -18,8 +18,13 @@ public class ActionImpl implements Action {
     }
 
     @Override
+    public String getName(String prefix) {
+        return String.join(" ", prefix, this.action);
+    }
+
+    @Override
     public String execute() {
-        return action;
+        return this.action;
     }
 
     @Override
@@ -29,11 +34,11 @@ public class ActionImpl implements Action {
 
     @Override
     public String executeFromAndUse(Emotion emotion, Human... humans) {
-        return String.join(emotion.use(humans), " ", this.action);
+        return String.join(" ", emotion.use(humans), this.action);
     }
 
     @Override
-    public String executeFrom(String prefix) {
-        return String.join(prefix, " ", this.action);
+    public String executeFrom(String entity) {
+        return String.join(" ", entity, this.action);
     }
 }

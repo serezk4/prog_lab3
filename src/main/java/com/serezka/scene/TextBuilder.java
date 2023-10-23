@@ -27,6 +27,9 @@ public final class TextBuilder {
     }
 
     public String getResult() {
-        return messages.stream().map(part -> String.join(part, " ")).collect(Collectors.joining());
+        return messages.stream()
+                .map(part -> String.join(" ",".?!,".contains(part) ? part : " " + part ))
+                .collect(Collectors.joining())
+                .replaceAll(" {2}", " ");
     }
 }
