@@ -1,5 +1,6 @@
 package com.serezka.scene;
 
+import com.serezka.Scene;
 import com.serezka.scene.entities.action.list.*;
 import com.serezka.scene.entities.family.list.Svantesoni;
 import com.serezka.scene.entities.human.Organ;
@@ -7,11 +8,13 @@ import com.serezka.scene.entities.human.list.*;
 import com.serezka.scene.entities.place.list.CarlsonRoof;
 import com.serezka.scene.entities.qualifers.list.*;
 
-public class Scene {
+import java.util.Objects;
+
+public class MyScene extends Scene {
     private final TextBuilder history = TextBuilder.getInstance();
 
-    public void build() {
-        // build history
+    @Override
+    public String build() {
         history.add(Kid.getInstance().getName("У"))
                 .add(new EyesRounded().executeFrom(Organ.EYES.getName()))
                 .add(new Astonishment().getName("от"))
@@ -59,6 +62,26 @@ public class Scene {
         history.add(new CantHide().executeFromAndUse(new Never(), "Этот дурачок"))
                 .add(".");
 
-        System.out.println(history.getResult());
+        return history.getResult();
+    }
+
+    @Override
+    public String toString() {
+        return "Сцена {" +
+                "history=" + history +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MyScene myScene = (MyScene) o;
+        return Objects.equals(history, myScene.history);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(history);
     }
 }

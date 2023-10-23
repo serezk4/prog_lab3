@@ -5,6 +5,8 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
+import java.util.Objects;
+
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
 public class HumanImpl implements Human {
@@ -48,5 +50,28 @@ public class HumanImpl implements Human {
     @Override
     public String getName(String prefix) {
         return String.join(" ", prefix, this.name);
+    }
+
+    @Override
+    public String toString() {
+        return "Человек {" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", home=" + home +
+                ", gender=" + gender +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        HumanImpl human = (HumanImpl) o;
+        return age == human.age && Objects.equals(name, human.name) && Objects.equals(home, human.home) && gender == human.gender;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, age, home, gender);
     }
 }

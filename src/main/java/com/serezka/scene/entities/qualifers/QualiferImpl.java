@@ -6,6 +6,8 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
+import java.util.Objects;
+
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
 public class QualiferImpl implements Qualifer {
@@ -39,5 +41,25 @@ public class QualiferImpl implements Qualifer {
     @Override
     public String getName(String prefix) {
         return String.join(" ", prefix, this.emotion);
+    }
+
+    @Override
+    public String toString() {
+        return "Qualifer {" +
+                "emotion='" + emotion + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        QualiferImpl qualifer = (QualiferImpl) o;
+        return Objects.equals(emotion, qualifer.emotion);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(emotion);
     }
 }
