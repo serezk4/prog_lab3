@@ -1,9 +1,7 @@
 package com.serezka.scene;
 
-import com.serezka.scene.entities.action.Action;
-import com.serezka.scene.entities.action.ActionImpl;
-import com.serezka.scene.entities.emotion.Emotion;
-import com.serezka.scene.entities.emotion.EmotionImpl;
+import com.serezka.scene.entities.action.list.*;
+import com.serezka.scene.entities.qualifers.list.*;
 import com.serezka.scene.entities.family.Family;
 import com.serezka.scene.entities.family.FamilyImpl;
 import com.serezka.scene.entities.human.Gender;
@@ -13,7 +11,6 @@ import com.serezka.scene.entities.human.Organ;
 import com.serezka.scene.entities.place.House;
 import com.serezka.scene.entities.place.Place;
 import com.serezka.scene.entities.place.Roof;
-import com.serezka.scene.entities.util.HumanUtils;
 
 import java.util.Collections;
 
@@ -37,75 +34,52 @@ public class Scene {
         // families
         Family svantesoni = new FamilyImpl("Свантесонов", Collections.emptyList(), new House());
 
-        // actions
-        Action eyesRounded = new ActionImpl("округлились");
-        Action mishear = new ActionImpl("ослышался");
-        Action think = new ActionImpl("думают");
-        Action live = new ActionImpl("живет");
-        Action mean = new ActionImpl("ведь значит");
-        Action canHide = new ActionImpl("может спрятаться");
-        Action dontKnowHowToHide = new ActionImpl("не умел прятаться");
-        Action stayThere = new ActionImpl("быть там");
-        Action didntTrackDownOfHim = new ActionImpl("его не выследили");
-        Action notClimbOnRoofs = new ActionImpl("не лазает по крышам");
-        Action notUnderstood = new ActionImpl("не пронюхали");
-        Action haveTo = new ActionImpl("придется");
-
-        // emotions
-        Emotion astonishment = new EmotionImpl("удивления");
-        Emotion indeed = new EmotionImpl("в самом деле");
-        Emotion always = new EmotionImpl("всегда");
-        Emotion inSafety = new EmotionImpl("в полной безопасности");
-        Emotion awful = new EmotionImpl("ужасно");
-        Emotion feel = new EmotionImpl("каково");
-        Emotion never = new EmotionImpl("никогда");
-
+        // build history
         history.add(kid.getName("У"))
-                .add(eyesRounded.executeFrom(Organ.EYES.getName()))
-                .add(astonishment.getName("от"))
+                .add(new EyesRounded().executeFrom(Organ.EYES.getName()))
+                .add(new Astonishment().getName("от"))
                 .add(".");
 
         history.add("Может,")
-                .add(mishear.executeFrom(kid.getGender().getPrefix()))
+                .add(new Mishear().executeFrom(kid.getGender().getPrefix()))
                 .add("?");
 
         history.add("Неужели")
-                .add(think.executeFromAndUse(indeed, fille, rulle))
+                .add(new Think().executeFromAndUse(new Indeed(), fille, rulle))
                 .add(",").add("что")
-                .add(live.executeFrom(carlson)).add(svantesoni.getName("у"))
+                .add(new Live().executeFrom(carlson)).add(svantesoni.getName("у"))
                 .add("?");
 
         history.add("Какое счастье")
                 .add("!");
 
-        history.add(mean.executeFrom("Это"))
+        history.add(new Mean().executeFrom("Это"))
                 .add(",").add("что")
-                .add(canHide.executeFromAndUse(always, carlson)).add("у себя дома")
+                .add(new CanHide().executeFromAndUse(new Always(), carlson)).add("у себя дома")
                 .add("и")
-                .add(stayThere.execute()).add(inSafety.use())
+                .add(new StayThere().execute()).add(new InSafety().use())
                 .add(".");
 
-        history.add(didntTrackDownOfHim.executeFrom(fille, rulle))
+        history.add(new DidntTrackDownOfHim().executeFrom(fille, rulle))
                 .add("!");
 
-        history.add("Да это и не так легко.");
+        history.add(new ItsNotSoEasy().use(), ".");
 
         history.add("Ведь никто,")
                 .add(sweep.getName("кроме"))
-                .add(", ").add(notClimbOnRoofs.execute())
-                .add(".");
+                .add(",", new DontClimbOnRoofs().execute(), ".");
 
         history.add("Итак,")
-                .add(notUnderstood.executeFrom(fille, rulle))
+                .add(new DontUnderstood().executeFrom(fille, rulle))
                 .add(carlsonHouse.getName("про"), ",")
-                .add("и тем не менее").add(awful.getName("все это"))
+                .add("и тем не менее").add(new Awful().getName("все это"))
                 .add(".");
 
         history.add(carlson.getName("Бедняга"))
-                .add(",").add(feel.use()).add(haveTo.executeFrom("ему")).add(",")
+                .add(",").add(new FeelLike().use()).add(new HaveTo().executeFrom("ему")).add(",")
                 .add("если всерьез начнется за ним охота").add("!");
 
-        history.add(never.use()).add(dontKnowHowToHide.executeFrom("Этот дурачок"))
+        history.add(new CantHide().executeFromAndUse(new Never(), "Этот дурачок"))
                 .add(".");
 
         System.out.println(history.getResult());

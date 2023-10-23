@@ -1,6 +1,6 @@
 package com.serezka.scene.entities.action;
 
-import com.serezka.scene.entities.emotion.Emotion;
+import com.serezka.scene.entities.qualifers.Qualifer;
 import com.serezka.scene.entities.human.Human;
 import com.serezka.scene.entities.util.HumanUtils;
 import lombok.AccessLevel;
@@ -33,12 +33,17 @@ public class ActionImpl implements Action {
     }
 
     @Override
-    public String executeFromAndUse(Emotion emotion, Human... humans) {
-        return String.join(" ", emotion.use(humans), this.action);
+    public String executeFromAndUse(Qualifer qualifer, Human... humans) {
+        return String.join(" ", qualifer.use(humans), this.action);
     }
 
     @Override
     public String executeFrom(String entity) {
         return String.join(" ", entity, this.action);
+    }
+
+    @Override
+    public String executeFromAndUse(Qualifer qualifer, String entity) {
+        return String.join(" ", qualifer.use(entity), this.action);
     }
 }

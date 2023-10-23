@@ -1,10 +1,11 @@
-package com.serezka.scene.entities.emotion;
+package com.serezka.scene.entities.qualifers;
 
 import com.serezka.scene.entities.Entity;
 import com.serezka.scene.entities.human.Human;
 
-public interface Emotion extends Entity {
+public interface Qualifer extends Entity {
     String from();
     String use(Human... humans);
+    String use(String entity);
     String use();
 }
